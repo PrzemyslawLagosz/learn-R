@@ -1,14 +1,12 @@
 name: "my-website"
 output_dir: "docs"
 navbar:
-  title: "My Website"
+  title: "Notebook"
   left:
-    - text: "Home"
-      href: index.html
-    - text: "About"
-      href: about.html
-    - text: "Mapa Polski"
-      href: Polska.html
+    - text: "Spatial Objects"
+      menu:
+        - text: "Mapa Polski"
+          href: Polska.html
     - text: "POGROMCY DANYCH"
       menu:
         - text: "SEZON 1"
