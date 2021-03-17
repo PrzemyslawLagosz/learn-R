@@ -6,3 +6,7 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
+    - text: "POGROMCY DANYCH"
+      menu:
+        - text: "LEKCJA 1"
+        - text: "LEKCJA 2"
