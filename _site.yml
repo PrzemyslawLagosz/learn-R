@@ -13,3 +13,7 @@ navbar:
       menu:
         - text: "LEKCJA 1"
         - text: "LEKCJA 2"
+output:
+  html_document:
+    theme: yeti
+    highlight: textmate
