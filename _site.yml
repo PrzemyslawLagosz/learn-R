@@ -3,6 +3,8 @@ output_dir: "docs"
 navbar:
   title: "Notebook"
   left:
+    - icon: fa-home
+      href: index.html
     - text: "Spatial Objects"
       menu:
         - text: "Mapa Polski"
