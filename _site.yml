@@ -11,9 +11,15 @@ navbar:
       href: Polska.html
     - text: "POGROMCY DANYCH"
       menu:
-        - text: "LEKCJA 1"
-        - text: "LEKCJA 2"
+        - text: "SEZON 1"
+        - text: '---------'
+        - text: "SEZON 2"
+  right: 
+    - icon: fa-envelope
+      href: mailto:<przemyslawlagosz1@gmail.com>
+    - text: "Git"
+      href: https://github.com/PrzemyslawLagosz/learn-R
 output:
   html_document:
     theme: yeti
-    highlight: textmate
+    highlight: pygments
