@@ -13,6 +13,7 @@
 
 <title>Polska.utf8</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -28,8 +29,10 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -52,19 +55,19 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -84,7 +87,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -303,6 +306,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -310,6 +376,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -346,12 +422,21 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    POGROMCY DANYCH
+    pogRomcy
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">SEZON 1</li>
+    <li>
+      <a href="pogRomcy1.2.html">Odczytywanie, zapisywanie i indeksowanie danych</a>
+    </li>
+    <li>
+      <a href="pogRomcy1.3.html">Instrukcje sterujące, pętle, warunki i funkcje</a>
+    </li>
+    <li>
+      <a href="pogRomcy1.4.html">Podstawowe typy danych i ich statystyki opisowe</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">SEZON 2</li>
   </ul>
@@ -383,72 +468,75 @@ $(document).ready(function () {
 <div id="dane" class="section level1">
 <h1>Dane</h1>
 <p>Wgranie potrzebnych bibliotek.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(rnaturalearth)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">library</span>(rnaturalearthdata)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">library</span>(ggspatial)</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">library</span>(maps)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">library</span>(tools)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">library</span>(lwgeom)</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">library</span>(ggrepel)</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="kw">library</span>(cowplot)</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="kw">library</span>(PogromcyDanych)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearthdata)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tools)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lwgeom)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PogromcyDanych)</span></code></pre></div>
 <p>Wgranie mapki swiata, Polski oraz ustawienie motywu domyslnego. Mapa zostaa pobrana z strony (<a href="https://gadm.org/download_country_v3.html">GADM</a>)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a>world &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">scale =</span> <span class="st">&quot;medium&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a>polska &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;C:/R/MAPA/DlaR/gadm36_POL_1_sf.rds&quot;</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">class</span>(polska)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>world <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">&quot;medium&quot;</span>, <span class="at">returnclass =</span> <span class="st">&quot;sf&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>polska <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;C:/R/MAPA/DlaR/gadm36_POL_1_sf.rds&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(polska)</span></code></pre></div>
 <pre><code>## [1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
 </div>
 <div id="rysujemy" class="section level1">
 <h1>Rysujemy :)</h1>
 <p>Mapa polski z podpisanymi regionami.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>punkty_centralne &lt;-<span class="st"> </span><span class="kw">cbind</span>(polska, <span class="kw">st_coordinates</span>(<span class="kw">st_centroid</span>(polska<span class="op">$</span>geometry)))</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> polska)<span class="op">+</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">fill =</span> <span class="ot">NA</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>)<span class="op">+</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> punkty_centralne, <span class="kw">aes</span>(<span class="dt">x=</span>X, <span class="dt">y=</span>Y), <span class="dt">color =</span> <span class="st">&quot;royalblue4&quot;</span>)<span class="op">+</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> punkty_centralne, </span>
-<span id="cb4-7"><a href="#cb4-7"></a>             <span class="kw">aes</span>(<span class="dt">x=</span> X, <span class="dt">y=</span> Y, <span class="dt">label=</span> NAME_<span class="dv">1</span>), </span>
-<span id="cb4-8"><a href="#cb4-8"></a>             <span class="dt">nudge_y =</span> <span class="fl">0.2</span>, </span>
-<span id="cb4-9"><a href="#cb4-9"></a>             <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>, </span>
-<span id="cb4-10"><a href="#cb4-10"></a>             <span class="dt">color =</span> <span class="st">&quot;royalblue&quot;</span>)<span class="op">+</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Panstwo z kartonu&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Szerokość geograficzna&quot;</span>, <span class="dt">y=</span> <span class="st">&quot;Długość geograficzna&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>punkty_centralne <span class="ot">&lt;-</span> <span class="fu">cbind</span>(polska, <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(polska<span class="sc">$</span>geometry)))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> polska)<span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> punkty_centralne, <span class="fu">aes</span>(<span class="at">x=</span>X, <span class="at">y=</span>Y), <span class="at">color =</span> <span class="st">&quot;royalblue4&quot;</span>)<span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> punkty_centralne, </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x=</span> X, <span class="at">y=</span> Y, <span class="at">label=</span> NAME_1), </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">nudge_y =</span> <span class="fl">0.2</span>, </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>, </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;royalblue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Panstwo z kartonu&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Szerokość geograficzna&quot;</span>, <span class="at">y=</span> <span class="st">&quot;Długość geograficzna&quot;</span>)</span></code></pre></div>
 <p><img src="Polska_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>Wyznaczenie najwiekszego wojewodztwa. <code>st_area()</code> –&gt; Liczy domyslnie powierzchnie w m^2.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#Liczy powierzchnie, przeksztalcenie na km^2</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>punkty_centralne<span class="op">$</span>area &lt;-<span class="st"> </span>(<span class="kw">as.numeric</span>(<span class="kw">st_area</span>(punkty_centralne))<span class="op">/</span><span class="dv">1000</span><span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a>only_area &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">nazwy =</span> punkty_centralne<span class="op">$</span>NAME_<span class="dv">1</span>, <span class="dt">pow =</span> punkty_centralne<span class="op">$</span>area)</span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#Posortowanie obszarow malejaco i przypisanie miejsc</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a>only_area &lt;-<span class="st"> </span>only_area <span class="op">%&gt;%</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pow)) <span class="op">%&gt;%</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">miejsce =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(only_area)))</span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a>punkty_centralne &lt;-<span class="st"> </span>punkty_centralne <span class="op">%&gt;%</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(area)) <span class="op">%&gt;%</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">miejsce =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(only_area)))</span>
-<span id="cb5-14"><a href="#cb5-14"></a></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#Mapka</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> punkty_centralne)<span class="op">+</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> area))<span class="op">+</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">name =</span> <span class="st">&quot;Powierzchnia w km^2&quot;</span>)<span class="op">+</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">x=</span> X, <span class="dt">y=</span> Y, <span class="dt">label=</span> miejsce))<span class="op">+</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Ranking województw pod względem powierzchni&quot;</span>)<span class="op">+</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb5-23"><a href="#cb5-23"></a>        <span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb5-24"><a href="#cb5-24"></a>        <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
+<p>Wyznaczenie najwiekszego wojewodztwa.<br />
+<code>st_area()</code> –&gt; Liczy domyslnie powierzchnie w <span class="math inline">\(m^2\)</span>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Liczy powierzchnie, przeksztalcenie na km^2</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>punkty_centralne<span class="sc">$</span>area <span class="ot">&lt;-</span> (<span class="fu">as.numeric</span>(<span class="fu">st_area</span>(punkty_centralne))<span class="sc">/</span><span class="dv">1000</span><span class="sc">**</span><span class="dv">2</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>only_area <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">nazwy =</span> punkty_centralne<span class="sc">$</span>NAME_1, <span class="at">pow =</span> punkty_centralne<span class="sc">$</span>area)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Posortowanie obszarow malejaco i przypisanie miejsc</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>only_area <span class="ot">&lt;-</span> only_area <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pow)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">miejsce =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(only_area)))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>punkty_centralne <span class="ot">&lt;-</span> punkty_centralne <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(area)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">miejsce =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(only_area)))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Mapka</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> punkty_centralne)<span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> area))<span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">&quot;D&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">name =</span> <span class="st">&quot;Powierzchnia w km^2&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x=</span> X, <span class="at">y=</span> Y, <span class="at">label=</span> miejsce))<span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Ranking województw pod względem powierzchni&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="Polska_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -481,6 +569,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

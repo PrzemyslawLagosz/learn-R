@@ -52,8 +52,8 @@ ggplot(data = polska)+
 
 ```
 
-Wyznaczenie najwiekszego wojewodztwa.
-`st_area()` --> Liczy domyslnie powierzchnie w m^2. 
+Wyznaczenie najwiekszego wojewodztwa.  
+`st_area()` --> Liczy domyslnie powierzchnie w $m^2$. 
 
 
 ```{r}

@@ -9,9 +9,15 @@ navbar:
       menu:
         - text: "Mapa Polski"
           href: Polska.html
-    - text: "POGROMCY DANYCH"
+    - text: "pogRomcy"
       menu:
         - text: "SEZON 1"
+        - text: "Odczytywanie, zapisywanie i indeksowanie danych"
+          href: pogRomcy1.2.html
+        - text: "Instrukcje sterujące, pętle, warunki i funkcje"
+          href: pogRomcy1.3.html
+        - text: "Podstawowe typy danych i ich statystyki opisowe"
+          href: pogRomcy1.4.html
         - text: '---------'
         - text: "SEZON 2"
   right: 
@@ -23,3 +29,5 @@ output:
   html_document:
     theme: yeti
     highlight: pygments
+    toc: true  
+    toc_float: true
