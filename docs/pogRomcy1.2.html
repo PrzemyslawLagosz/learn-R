@@ -438,6 +438,9 @@ div.tocify {
     <li>
       <a href="pogRomcy1.4.html">Podstawowe typy danych i ich statystyki opisowe</a>
     </li>
+    <li>
+      <a href="pogRomcy1.5.html">Przetwarzanie potokowe danych</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">SEZON 2</li>
   </ul>
@@ -587,21 +590,27 @@ div.tocify {
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(koty_ptaki)</span></code></pre></div>
 <pre><code>## [1] 13</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(koty_ptaki)</span></code></pre></div>
-<pre><code>## [1] 7</code></pre>
+<pre><code>## [1] 9</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>koty_ptaki[<span class="dv">2</span>,<span class="dv">3</span>]</span></code></pre></div>
-<pre><code>## [1] 2</code></pre>
+<pre><code>## [1] 1.3</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tworzy wektor T/F jeśli warunek jest spełniony, nastepnie ten wektor używty do indeksowania</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>najszybsze <span class="ot">&lt;-</span> koty_ptaki<span class="sc">$</span>predkosc <span class="sc">&gt;</span> <span class="dv">100</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>najszybsze</span></code></pre></div>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE
 ## [13]  TRUE</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>koty_ptaki[najszybsze, ]</span></code></pre></div>
 <pre><code>##           gatunek  waga dlugosc predkosc  habitat zywotnosc druzyna
-## 6          Gepard 60.00     1.4      115   Afryka        12     Kot
-## 8          Jerzyk  0.05     0.2      170 Euroazja        20    Ptak
-## 10  Orzel przedni  5.00     0.9      160   Polnoc        20    Ptak
-## 11 Sokol wedrowny  0.70     0.5      110   Polnoc        15    Ptak
-## 13       Albatros  4.00     0.8      120 Poludnie        50    Ptak</code></pre>
+## 9  Sokol wedrowny  0.70     0.5      110   Polnoc        15    Ptak
+## 10         Gepard 60.00     1.4      115   Afryka        12     Kot
+## 11       Albatros  4.00     0.8      120 Poludnie        50    Ptak
+## 12  Orzel przedni  5.00     0.9      160   Polnoc        20    Ptak
+## 13         Jerzyk  0.05     0.2      170 Euroazja        20    Ptak
+##    habitat_napis gatunek_napisy
+## 9         Polnoc Sokol wedrowny
+## 10        Afryka         Gepard
+## 11      Poludnie       Albatros
+## 12        Polnoc  Orzel przedni
+## 13      Euroazja         Jerzyk</code></pre>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tworzy wektor sample z o dlugosci `nrow(koty_ptaki)`, `prob` określa stosunek</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>,<span class="st">&quot;DUPA&quot;</span>), <span class="at">size =</span> <span class="fu">nrow</span>(koty_ptaki), <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
@@ -610,44 +619,62 @@ div.tocify {
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)   </span></code></pre></div>
 <pre><code>## [1] -1 -2 -3 -4 -5</code></pre>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>koty_ptaki[<span class="sc">-</span><span class="dv">1</span><span class="sc">:-</span><span class="dv">5</span>,]</span></code></pre></div>
-<pre><code>##           gatunek   waga dlugosc predkosc  habitat zywotnosc druzyna
-## 6          Gepard  60.00     1.4      115   Afryka        12     Kot
-## 7           Irbis  50.00     1.3       65     Azja        18     Kot
-## 8          Jerzyk   0.05     0.2      170 Euroazja        20    Ptak
-## 9           Strus 150.00     2.5       70   Afryka        45    Ptak
-## 10  Orzel przedni   5.00     0.9      160   Polnoc        20    Ptak
-## 11 Sokol wedrowny   0.70     0.5      110   Polnoc        15    Ptak
-## 12 Sokol norweski   2.00     0.7      100   Polnoc        20    Ptak
-## 13       Albatros   4.00     0.8      120 Poludnie        50    Ptak</code></pre>
+<pre><code>##           gatunek  waga dlugosc predkosc  habitat zywotnosc druzyna
+## 6         Leopard 7e+01     1.4       85     Azja        21     Kot
+## 7          Jaguar 1e+02     1.7       90  Ameryka        15     Kot
+## 8  Sokol norweski 2e+00     0.7      100   Polnoc        20    Ptak
+## 9  Sokol wedrowny 7e-01     0.5      110   Polnoc        15    Ptak
+## 10         Gepard 6e+01     1.4      115   Afryka        12     Kot
+## 11       Albatros 4e+00     0.8      120 Poludnie        50    Ptak
+## 12  Orzel przedni 5e+00     0.9      160   Polnoc        20    Ptak
+## 13         Jerzyk 5e-02     0.2      170 Euroazja        20    Ptak
+##    habitat_napis gatunek_napisy
+## 6           Azja        Leopard
+## 7        Ameryka         Jaguar
+## 8         Polnoc Sokol norweski
+## 9         Polnoc Sokol wedrowny
+## 10        Afryka         Gepard
+## 11      Poludnie       Albatros
+## 12        Polnoc  Orzel przedni
+## 13      Euroazja         Jerzyk</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>koty_ptaki[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),]</span></code></pre></div>
-<pre><code>##           gatunek   waga dlugosc predkosc  habitat zywotnosc druzyna
-## 6          Gepard  60.00     1.4      115   Afryka        12     Kot
-## 7           Irbis  50.00     1.3       65     Azja        18     Kot
-## 8          Jerzyk   0.05     0.2      170 Euroazja        20    Ptak
-## 9           Strus 150.00     2.5       70   Afryka        45    Ptak
-## 10  Orzel przedni   5.00     0.9      160   Polnoc        20    Ptak
-## 11 Sokol wedrowny   0.70     0.5      110   Polnoc        15    Ptak
-## 12 Sokol norweski   2.00     0.7      100   Polnoc        20    Ptak
-## 13       Albatros   4.00     0.8      120 Poludnie        50    Ptak</code></pre>
+<pre><code>##           gatunek  waga dlugosc predkosc  habitat zywotnosc druzyna
+## 6         Leopard 7e+01     1.4       85     Azja        21     Kot
+## 7          Jaguar 1e+02     1.7       90  Ameryka        15     Kot
+## 8  Sokol norweski 2e+00     0.7      100   Polnoc        20    Ptak
+## 9  Sokol wedrowny 7e-01     0.5      110   Polnoc        15    Ptak
+## 10         Gepard 6e+01     1.4      115   Afryka        12     Kot
+## 11       Albatros 4e+00     0.8      120 Poludnie        50    Ptak
+## 12  Orzel przedni 5e+00     0.9      160   Polnoc        20    Ptak
+## 13         Jerzyk 5e-02     0.2      170 Euroazja        20    Ptak
+##    habitat_napis gatunek_napisy
+## 6           Azja        Leopard
+## 7        Ameryka         Jaguar
+## 8         Polnoc Sokol norweski
+## 9         Polnoc Sokol wedrowny
+## 10        Afryka         Gepard
+## 11      Poludnie       Albatros
+## 12        Polnoc  Orzel przedni
+## 13      Euroazja         Jerzyk</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#wybiera kolumne predkosc, przeksztalca na wektor</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>koty_ptaki[,<span class="st">&quot;predkosc&quot;</span>]</span></code></pre></div>
-<pre><code>##  [1]  60  80  90  70  85 115  65 170  70 160 110 100 120</code></pre>
+<pre><code>##  [1]  60  65  70  70  80  85  90 100 110 115 120 160 170</code></pre>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#wybiera kolumne predkosc, NIE przeksztalca na wektor</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>koty_ptaki[,<span class="st">&quot;predkosc&quot;</span>, drop <span class="ot">=</span> F]</span></code></pre></div>
 <pre><code>##    predkosc
 ## 1        60
-## 2        80
-## 3        90
+## 2        65
+## 3        70
 ## 4        70
-## 5        85
-## 6       115
-## 7        65
-## 8       170
-## 9        70
-## 10      160
-## 11      110
-## 12      100
-## 13      120</code></pre>
+## 5        80
+## 6        85
+## 7        90
+## 8       100
+## 9       110
+## 10      115
+## 11      120
+## 12      160
+## 13      170</code></pre>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>kolumny <span class="ot">&lt;-</span> <span class="fu">colnames</span>(koty_ptaki)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>kolumny[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;gatunek&quot; &quot;waga&quot;    &quot;dlugosc&quot;</code></pre>
@@ -658,7 +685,7 @@ div.tocify {
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Wyrzuca INDEKSY w kolejność rosnącej/malejącej</span></span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">order</span>(koty_ptaki[,<span class="st">&#39;predkosc&#39;</span>])</span></code></pre></div>
-<pre><code>##  [1]  1  7  4  9  2  5  3 12 11  6 13 10  8</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13</code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Przypisuje pod koty_ptaki posortowane koty_ptaki według kolumny &quot;predkość&quot;</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>koty_ptaki <span class="ot">&lt;-</span> koty_ptaki <span class="sc">%&gt;%</span></span>
@@ -686,21 +713,41 @@ div.tocify {
 ## 10        Gepard  60.00     1.4      115   Afryka        12     Kot
 ## 11      Albatros   4.00     0.8      120 Poludnie        50    Ptak
 ## 12 Orzel przedni   5.00     0.9      160   Polnoc        20    Ptak
-## 13        Jerzyk   0.05     0.2      170 Euroazja        20    Ptak</code></pre>
+## 13        Jerzyk   0.05     0.2      170 Euroazja        20    Ptak
+##    habitat_napis gatunek_napisy
+## 1           Azja         Tygrys
+## 2           Azja          Irbis
+## 3        Ameryka           Puma
+## 4         Afryka          Strus
+## 5         Afryka            Lew
+## 6           Azja        Leopard
+## 7        Ameryka         Jaguar
+## 10        Afryka         Gepard
+## 11      Poludnie       Albatros
+## 12        Polnoc  Orzel przedni
+## 13      Euroazja         Jerzyk</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wybierz z ramki danych koty_ptaki tylko koty (pierwsze siedem wierszy).</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>koty_tylko <span class="ot">&lt;-</span> koty_ptaki <span class="sc">%&gt;%</span></span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(druzyna <span class="sc">==</span> <span class="st">&quot;Kot&quot;</span>)</span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>koty_ptaki[koty_ptaki<span class="sc">$</span>druzyna <span class="sc">==</span> <span class="st">&quot;Kot&quot;</span>, ]</span></code></pre></div>
-<pre><code>##    gatunek waga dlugosc predkosc habitat zywotnosc druzyna
-## 1   Tygrys  300     2.5       60    Azja        25     Kot
-## 2    Irbis   50     1.3       65    Azja        18     Kot
-## 3     Puma   80     1.7       70 Ameryka        13     Kot
-## 5      Lew  200     2.0       80  Afryka        29     Kot
-## 6  Leopard   70     1.4       85    Azja        21     Kot
-## 7   Jaguar  100     1.7       90 Ameryka        15     Kot
-## 10  Gepard   60     1.4      115  Afryka        12     Kot</code></pre>
+<pre><code>##    gatunek waga dlugosc predkosc habitat zywotnosc druzyna habitat_napis
+## 1   Tygrys  300     2.5       60    Azja        25     Kot          Azja
+## 2    Irbis   50     1.3       65    Azja        18     Kot          Azja
+## 3     Puma   80     1.7       70 Ameryka        13     Kot       Ameryka
+## 5      Lew  200     2.0       80  Afryka        29     Kot        Afryka
+## 6  Leopard   70     1.4       85    Azja        21     Kot          Azja
+## 7   Jaguar  100     1.7       90 Ameryka        15     Kot       Ameryka
+## 10  Gepard   60     1.4      115  Afryka        12     Kot        Afryka
+##    gatunek_napisy
+## 1          Tygrys
+## 2           Irbis
+## 3            Puma
+## 5             Lew
+## 6         Leopard
+## 7          Jaguar
+## 10         Gepard</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wybierz z ramki danych koty_ptaki tylko kolumnę z wagą i prędkością.</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>koty_ptaki[,<span class="fu">c</span>(<span class="st">&quot;waga&quot;</span>,<span class="st">&quot;predkosc&quot;</span>), drop<span class="ot">=</span>F]</span></code></pre></div>
@@ -721,20 +768,34 @@ div.tocify {
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wybierz z ramki danych koty_ptaki wszystkie kolumny poza ostatnią.</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>koty_ptaki[,<span class="sc">-</span><span class="fu">ncol</span>(koty_ptaki)]</span></code></pre></div>
-<pre><code>##           gatunek   waga dlugosc predkosc  habitat zywotnosc
-## 1          Tygrys 300.00     2.5       60     Azja        25
-## 2           Irbis  50.00     1.3       65     Azja        18
-## 3            Puma  80.00     1.7       70  Ameryka        13
-## 4           Strus 150.00     2.5       70   Afryka        45
-## 5             Lew 200.00     2.0       80   Afryka        29
-## 6         Leopard  70.00     1.4       85     Azja        21
-## 7          Jaguar 100.00     1.7       90  Ameryka        15
-## 8  Sokol norweski   2.00     0.7      100   Polnoc        20
-## 9  Sokol wedrowny   0.70     0.5      110   Polnoc        15
-## 10         Gepard  60.00     1.4      115   Afryka        12
-## 11       Albatros   4.00     0.8      120 Poludnie        50
-## 12  Orzel przedni   5.00     0.9      160   Polnoc        20
-## 13         Jerzyk   0.05     0.2      170 Euroazja        20</code></pre>
+<pre><code>##           gatunek   waga dlugosc predkosc  habitat zywotnosc druzyna
+## 1          Tygrys 300.00     2.5       60     Azja        25     Kot
+## 2           Irbis  50.00     1.3       65     Azja        18     Kot
+## 3            Puma  80.00     1.7       70  Ameryka        13     Kot
+## 4           Strus 150.00     2.5       70   Afryka        45    Ptak
+## 5             Lew 200.00     2.0       80   Afryka        29     Kot
+## 6         Leopard  70.00     1.4       85     Azja        21     Kot
+## 7          Jaguar 100.00     1.7       90  Ameryka        15     Kot
+## 8  Sokol norweski   2.00     0.7      100   Polnoc        20    Ptak
+## 9  Sokol wedrowny   0.70     0.5      110   Polnoc        15    Ptak
+## 10         Gepard  60.00     1.4      115   Afryka        12     Kot
+## 11       Albatros   4.00     0.8      120 Poludnie        50    Ptak
+## 12  Orzel przedni   5.00     0.9      160   Polnoc        20    Ptak
+## 13         Jerzyk   0.05     0.2      170 Euroazja        20    Ptak
+##    habitat_napis
+## 1           Azja
+## 2           Azja
+## 3        Ameryka
+## 4         Afryka
+## 5         Afryka
+## 6           Azja
+## 7        Ameryka
+## 8         Polnoc
+## 9         Polnoc
+## 10        Afryka
+## 11      Poludnie
+## 12        Polnoc
+## 13      Euroazja</code></pre>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wybierz z ramki wiersze dla których waga jest mniejsza niż 100 oraz cztery pierwsze kolumny.</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>lekkie <span class="ot">&lt;-</span> koty_ptaki<span class="sc">$</span>waga <span class="sc">&lt;</span> <span class="dv">100</span></span>

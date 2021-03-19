@@ -18,6 +18,8 @@ navbar:
           href: pogRomcy1.3.html
         - text: "Podstawowe typy danych i ich statystyki opisowe"
           href: pogRomcy1.4.html
+        - text: "Przetwarzanie potokowe danych"
+          href: pogRomcy1.5.html
         - text: '---------'
         - text: "SEZON 2"
   right: 
