@@ -438,6 +438,9 @@ div.tocify {
     <li>
       <a href="pogRomcy1.4.html">Podstawowe typy danych i ich statystyki opisowe</a>
     </li>
+    <li>
+      <a href="pogRomcy1.5.html">Przetwarzanie potokowe danych</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">SEZON 2</li>
   </ul>
@@ -478,7 +481,9 @@ div.tocify {
 <h2>11. Cechy ilościowe</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PogromcyDanych)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(auta2012<span class="sc">$</span>Cena.w.PLN <span class="sc">&lt;</span> <span class="dv">5000</span>)</span></code></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Warunek logiczny tworzy wektor T/F</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#sum traktuje T jak 1, N jak 0, Czyli ile razy TRUE wystąpi</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(auta2012<span class="sc">$</span>Cena.w.PLN <span class="sc">&lt;</span> <span class="dv">5000</span>)</span></code></pre></div>
 <pre><code>## [1] 18559</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(auta2012)</span></code></pre></div>
 <pre><code>##  [1] &quot;Cena&quot;                         &quot;Waluta&quot;                      
@@ -491,7 +496,10 @@ div.tocify {
 ## [15] &quot;Kolor&quot;                        &quot;Kraj.aktualnej.rejestracji&quot;  
 ## [17] &quot;Kraj.pochodzenia&quot;             &quot;Pojazd.uszkodzony&quot;           
 ## [19] &quot;Skrzynia.biegow&quot;              &quot;Status.pojazdu.sprowadzonego&quot;
-## [21] &quot;Wyposazenie.dodatkowe&quot;</code></pre>
+## [21] &quot;Wyposazenie.dodatkowe&quot;        &quot;przedzily_Rok.Produkcji&quot;     
+## [23] &quot;przedzialu_Przebieg.w.km&quot;     &quot;MarkaModel&quot;                  
+## [25] &quot;Wyposazenie.dodatkowe_napisy&quot; &quot;Kolor_napisy&quot;                
+## [27] &quot;Rok.produkcjiKat&quot;</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>auta <span class="ot">&lt;-</span> auta2012</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(auta2012<span class="sc">$</span>Rok.produkcji)</span></code></pre></div>
@@ -554,7 +562,23 @@ div.tocify {
 ##  ABS, el. szyby, klimatyzacja, centralny zamek, poduszka powietrzna, radio / CD, wspomaganie kierownicy, immobiliser                                             :   718   
 ##  ABS, el. szyby, el. lusterka, klimatyzacja, centralny zamek, poduszka powietrzna, radio / CD, wspomaganie kierownicy, immobiliser, welurowa tapicerka           :   645   
 ##  ABS, el. szyby, el. lusterka, klimatyzacja, centralny zamek, autoalarm, poduszka powietrzna, radio / CD, wspomaganie kierownicy, immobiliser, welurowa tapicerka:   571   
-##  (Other)                                                                                                                                                         :195578</code></pre>
+##  (Other)                                                                                                                                                         :195578   
+##  przedzily_Rok.Produkcji  przedzialu_Przebieg.w.km  MarkaModel       
+##  [1900,1990): 2119       (0,1e+03]    :  4001      Length:207602     
+##  [1990,1995): 7079       (1e+03,1e+04]:  4748      Class :character  
+##  [1995,2000):36674       (1e+04,1e+05]: 43349      Mode  :character  
+##  [2000,2005):67704       (1e+05,1e+06]:115871                        
+##  [2005,2010):67386       (1e+06,1e+07]:    68                        
+##  [2010,2012):25996       NA&#39;s         : 39565                        
+##  NA&#39;s       :  644                                                   
+##  Wyposazenie.dodatkowe_napisy Kolor_napisy          Rok.produkcjiKat
+##  Length:207602                Length:207602      (1900,1990]: 2672  
+##  Class :character             Class :character   (1990,1996]: 9854  
+##  Mode  :character             Mode  :character   (1996,2000]:46133  
+##                                                  (2000,2006]:68324  
+##                                                  (2006,2010]:62554  
+##                                                  (2010,2012]:18062  
+##                                                  NA&#39;s       :    3</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(auta2012<span class="sc">$</span>Pojemnosc.skokowa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 1896</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(auta2012<span class="sc">$</span>Przebieg.w.km)</span></code></pre></div>
@@ -616,7 +640,7 @@ div.tocify {
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(auta2012)</span></code></pre></div>
 <pre><code>## Rows: 207,602
-## Columns: 21
+## Columns: 27
 ## $ Cena                         &lt;dbl&gt; 49900, 88000, 86000, 25900, 55900, 45900,~
 ## $ Waluta                       &lt;fct&gt; PLN, PLN, PLN, PLN, PLN, PLN, PLN, PLN, P~
 ## $ Cena.w.PLN                   &lt;dbl&gt; 49900, 88000, 86000, 25900, 55900, 45900,~
@@ -637,7 +661,13 @@ div.tocify {
 ## $ Pojazd.uszkodzony            &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , ,~
 ## $ Skrzynia.biegow              &lt;fct&gt; manualna, manualna, manualna, manualna, m~
 ## $ Status.pojazdu.sprowadzonego &lt;fct&gt; , , , sprowadzony / zarejestrowany, , , ,~
-## $ Wyposazenie.dodatkowe        &lt;fct&gt; &quot;ABS, el. lusterka, klimatyzacja, alufelg~</code></pre>
+## $ Wyposazenie.dodatkowe        &lt;fct&gt; &quot;ABS, el. lusterka, klimatyzacja, alufelg~
+## $ przedzily_Rok.Produkcji      &lt;fct&gt; &quot;[2005,2010)&quot;, &quot;[2005,2010)&quot;, &quot;[2005,2010~
+## $ przedzialu_Przebieg.w.km     &lt;fct&gt; &quot;(1e+04,1e+05]&quot;, &quot;(1e+04,1e+05]&quot;, &quot;(1e+03~
+## $ MarkaModel                   &lt;chr&gt; &quot;Kia: Carens&quot;, &quot;Mitsubishi: Outlander&quot;, &quot;~
+## $ Wyposazenie.dodatkowe_napisy &lt;chr&gt; &quot;ABS, el. lusterka, klimatyzacja, alufelg~
+## $ Kolor_napisy                 &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;srebrny-metallic&quot;, &quot;bialy&quot;, ~
+## $ Rok.produkcjiKat             &lt;fct&gt; &quot;(2006,2010]&quot;, &quot;(2006,2010]&quot;, &quot;(2006,2010~</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### SPRAWDZENIE ILE Ktore kolumny to Factory ########</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="dv">0</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">0</span></span>
@@ -657,7 +687,9 @@ div.tocify {
 ##  [7] &quot;Rodzaj.paliwa&quot;                &quot;Kolor&quot;                       
 ##  [9] &quot;Kraj.aktualnej.rejestracji&quot;   &quot;Kraj.pochodzenia&quot;            
 ## [11] &quot;Pojazd.uszkodzony&quot;            &quot;Skrzynia.biegow&quot;             
-## [13] &quot;Status.pojazdu.sprowadzonego&quot; &quot;Wyposazenie.dodatkowe&quot;</code></pre>
+## [13] &quot;Status.pojazdu.sprowadzonego&quot; &quot;Wyposazenie.dodatkowe&quot;       
+## [15] &quot;przedzily_Rok.Produkcji&quot;      &quot;przedzialu_Przebieg.w.km&quot;    
+## [17] &quot;Rok.produkcjiKat&quot;</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>(waluty <span class="ot">&lt;-</span> <span class="fu">table</span>(auta2012<span class="sc">$</span>Waluta))</span></code></pre></div>
 <pre><code>## 
 ##    CHF    CZK    EEK    EUR    GBP    HUF    PLN    USD 
@@ -861,7 +893,9 @@ div.tocify {
 ## [17] &quot;Kraj.pochodzenia&quot;             &quot;Pojazd.uszkodzony&quot;           
 ## [19] &quot;Skrzynia.biegow&quot;              &quot;Status.pojazdu.sprowadzonego&quot;
 ## [21] &quot;Wyposazenie.dodatkowe&quot;        &quot;przedzily_Rok.Produkcji&quot;     
-## [23] &quot;przedzialu_Przebieg.w.km&quot;     &quot;Rok.produkcjiKat&quot;</code></pre>
+## [23] &quot;przedzialu_Przebieg.w.km&quot;     &quot;MarkaModel&quot;                  
+## [25] &quot;Wyposazenie.dodatkowe_napisy&quot; &quot;Kolor_napisy&quot;                
+## [27] &quot;Rok.produkcjiKat&quot;</code></pre>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Sprawdzenie co jest factorem</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">which</span>(<span class="fu">sapply</span>(auta2012, class) <span class="sc">==</span> <span class="st">&quot;factor&quot;</span>))</span></code></pre></div>
@@ -1142,7 +1176,7 @@ div.tocify {
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>czas2 <span class="sc">-</span> czas1</span></code></pre></div>
 <pre><code>## Time difference of 1 days</code></pre>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> czas1</span></code></pre></div>
-<pre><code>## Time difference of 2225.091 days</code></pre>
+<pre><code>## Time difference of 2225.834 days</code></pre>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="do">###################################### ZADANIA ###########################################</span></span>
 <span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
@@ -1164,10 +1198,10 @@ div.tocify {
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sprawdź jaki dzień tygodnia będzie za 100 dni od dziś</span></span>
 <span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(<span class="fu">today</span>() <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">100</span>), <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## [1] sob\\.
+<pre><code>## [1] niedz\\.
 ## Levels: niedz\\. &lt; pon\\. &lt; wt\\. &lt; śr\\. &lt; czw\\. &lt; pt\\. &lt; sob\\.</code></pre>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(<span class="fu">today</span>(), <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## [1] czw\\.
+<pre><code>## [1] pt\\.
 ## Levels: niedz\\. &lt; pon\\. &lt; wt\\. &lt; śr\\. &lt; czw\\. &lt; pt\\. &lt; sob\\.</code></pre>
 </div>
 </div>

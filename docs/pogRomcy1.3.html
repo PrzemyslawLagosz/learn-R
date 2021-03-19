@@ -438,6 +438,9 @@ div.tocify {
     <li>
       <a href="pogRomcy1.4.html">Podstawowe typy danych i ich statystyki opisowe</a>
     </li>
+    <li>
+      <a href="pogRomcy1.5.html">Przetwarzanie potokowe danych</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">SEZON 2</li>
   </ul>
@@ -498,12 +501,16 @@ div.tocify {
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Stuczka numer :&quot;</span>, i, <span class="st">&quot;, a jej koszt to:&quot;</span>, koszt, <span class="st">&quot;PLN </span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Suma kosztów to:&quot;</span>, sumaKosztow, <span class="st">&quot;PLN </span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## Stuczka numer : 1 , a jej koszt to: 127.6074 PLN 
-## Suma kosztów to: 127.6074 PLN 
-## Stuczka numer : 2 , a jej koszt to: 521.2708 PLN 
-## Suma kosztów to: 648.8782 PLN 
-## Stuczka numer : 3 , a jej koszt to: 750.7668 PLN 
-## Suma kosztów to: 1399.645 PLN</code></pre>
+<pre><code>## Stuczka numer : 1 , a jej koszt to: 644.5649 PLN 
+## Suma kosztów to: 644.5649 PLN 
+## Stuczka numer : 2 , a jej koszt to: 303.2694 PLN 
+## Suma kosztów to: 947.8343 PLN 
+## Stuczka numer : 3 , a jej koszt to: 285.5356 PLN 
+## Suma kosztów to: 1233.37 PLN 
+## Stuczka numer : 4 , a jej koszt to: 802.4096 PLN 
+## Suma kosztów to: 2035.779 PLN 
+## Stuczka numer : 5 , a jej koszt to: 837.7872 PLN 
+## Suma kosztów to: 2873.567 PLN</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Kolumna gatunek </span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 13 różnych wartośći: Tygrys Lew Jaguar Puma Leopard</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -528,7 +535,11 @@ div.tocify {
 ## Kolumna zywotnosc 
 ## 10 unikalnych wartosci 25 18 13 45 29 21 15 20 12 50 
 ## Kolumna druzyna 
-## 2 unikalnych wartosci Kot Ptak</code></pre>
+## 2 unikalnych wartosci Kot Ptak 
+## Kolumna habitat_napis 
+## 6 unikalnych wartosci Azja Ameryka Afryka Polnoc Poludnie Euroazja 
+## Kolumna gatunek_napisy 
+## 13 unikalnych wartosci Tygrys Irbis Puma Strus Lew Leopard Jaguar Sokol norweski Sokol wedrowny Gepard Albatros Orzel przedni Jerzyk</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>koty_ptaki<span class="sc">$</span>gatunek <span class="ot">&lt;-</span> <span class="fu">as.character</span>(koty_ptaki<span class="sc">$</span>gatunek)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(koty_ptaki)) {</span>
@@ -640,14 +651,16 @@ div.tocify {
 <div id="instrukcje-warunkowe" class="section level2">
 <h2>9. Instrukcje warunkowe</h2>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(koty_ptaki)</span></code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    13 obs. of  7 variables:
-##  $ gatunek  : chr  &quot;Tygrys&quot; &quot;Irbis&quot; &quot;Puma&quot; &quot;Strus&quot; ...
-##  $ waga     : num  300 50 80 150 200 70 100 2 0.7 60 ...
-##  $ dlugosc  : num  2.5 1.3 1.7 2.5 2 1.4 1.7 0.7 0.5 1.4 ...
-##  $ predkosc : int  60 65 70 70 80 85 90 100 110 115 ...
-##  $ habitat  : Factor w/ 6 levels &quot;Afryka&quot;,&quot;Ameryka&quot;,..: 3 3 2 1 1 3 2 5 5 1 ...
-##  $ zywotnosc: int  25 18 13 45 29 21 15 20 15 12 ...
-##  $ druzyna  : Factor w/ 2 levels &quot;Kot&quot;,&quot;Ptak&quot;: 1 1 1 2 1 1 1 2 2 1 ...</code></pre>
+<pre><code>## &#39;data.frame&#39;:    13 obs. of  9 variables:
+##  $ gatunek       : chr  &quot;Tygrys&quot; &quot;Irbis&quot; &quot;Puma&quot; &quot;Strus&quot; ...
+##  $ waga          : num  300 50 80 150 200 70 100 2 0.7 60 ...
+##  $ dlugosc       : num  2.5 1.3 1.7 2.5 2 1.4 1.7 0.7 0.5 1.4 ...
+##  $ predkosc      : int  60 65 70 70 80 85 90 100 110 115 ...
+##  $ habitat       : Factor w/ 6 levels &quot;Afryka&quot;,&quot;Ameryka&quot;,..: 3 3 2 1 1 3 2 5 5 1 ...
+##  $ zywotnosc     : int  25 18 13 45 29 21 15 20 15 12 ...
+##  $ druzyna       : Factor w/ 2 levels &quot;Kot&quot;,&quot;Ptak&quot;: 1 1 1 2 1 1 1 2 2 1 ...
+##  $ habitat_napis : chr  &quot;Azja&quot; &quot;Azja&quot; &quot;Ameryka&quot; &quot;Afryka&quot; ...
+##  $ gatunek_napisy: chr  &quot;Tygrys&quot; &quot;Irbis&quot; &quot;Puma&quot; &quot;Strus&quot; ...</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>koty_ptaki[,<span class="st">&quot;druzyna&quot;</span>] <span class="sc">==</span> <span class="st">&quot;Kot&quot;</span></span></code></pre></div>
 <pre><code>##  [1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE
 ## [13] FALSE</code></pre>
@@ -677,17 +690,18 @@ div.tocify {
 ## [13] &quot;Ptaszysko&quot;</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>moneta <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n=</span><span class="dv">1</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>moneta</span></code></pre></div>
-<pre><code>## [1] 0.5844532</code></pre>
+<pre><code>## [1] 0.2281454</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(moneta<span class="sc">&gt;</span><span class="fl">0.5</span>, <span class="st">&quot;Orzel&quot;</span>, <span class="st">&quot;Reszka&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Orzel&quot;</code></pre>
+<pre><code>## [1] &quot;Reszka&quot;</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">###################################### ZADANIA ###########################################</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Napisz instrukcję warunkową, która dla zwierząt lżejszych niż 1kg wypisze lekkie, a dla </span></span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#cięższych niż 1 kg ciężkie.</span></span>
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(koty_ptaki)</span></code></pre></div>
-<pre><code>## [1] &quot;gatunek&quot;   &quot;waga&quot;      &quot;dlugosc&quot;   &quot;predkosc&quot;  &quot;habitat&quot;   &quot;zywotnosc&quot;
-## [7] &quot;druzyna&quot;</code></pre>
+<pre><code>## [1] &quot;gatunek&quot;        &quot;waga&quot;           &quot;dlugosc&quot;        &quot;predkosc&quot;      
+## [5] &quot;habitat&quot;        &quot;zywotnosc&quot;      &quot;druzyna&quot;        &quot;habitat_napis&quot; 
+## [9] &quot;gatunek_napisy&quot;</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(koty_ptaki)) {</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(koty_ptaki[i,<span class="st">&quot;waga&quot;</span>] <span class="sc">&lt;</span> <span class="dv">1</span>) {</span>

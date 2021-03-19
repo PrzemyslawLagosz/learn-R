@@ -21,6 +21,8 @@ library(PogromcyDanych)
 
 library(PogromcyDanych)
 
+#Warunek logiczny tworzy wektor T/F
+#sum traktuje T jak 1, N jak 0, Czyli ile razy TRUE wystąpi
 sum(auta2012$Cena.w.PLN < 5000)
 
 colnames(auta2012)

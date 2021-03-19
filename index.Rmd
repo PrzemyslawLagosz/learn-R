@@ -1,5 +1,8 @@
 ---
 title: "Co tu znajdziesz?"
+output:
+  html_document:
+    toc: FALSE  
 ---
     
 Witam. <br>
